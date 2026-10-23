@@ -10,7 +10,8 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "test:db": "node scripts/run-db-tests.mjs",
-    "test:race": "node scripts/claim-race-test.mjs"
+    "test:race": "node scripts/claim-race-test.mjs",
+    "db:check": "node scripts/check-supabase.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.45.0",

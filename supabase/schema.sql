@@ -1,5 +1,5 @@
 -- RescuePlate: schema, Row Level Security and workflow functions
--- This is the complete rolled-up schema (migrations 0001_init + 0002_hardening).
+-- This is the complete rolled-up schema (migrations 0001_init + 0002_hardening + 0003_storage_repair).
 -- Prefer supabase/migrations/ when using the Supabase CLI; paste this file for a quick install.
 create extension if not exists pgcrypto with schema extensions;
 
@@ -644,3 +644,16 @@ create policy food_images_delete on storage.objects for delete to authenticated
 
 -- realtime notifications
 alter publication supabase_realtime add table notifications;
+
+-- expiry job: best effort. Claim-time deadline checks work even without pg_cron.
+do $$
+begin
+  if to_regnamespace('cron') is null then
+    raise notice 'pg_cron is not enabled. Enable it (Dashboard -> Extensions), then run: select cron.schedule(''expire-donations'', ''*/5 * * * *'', ''select public.expire_donations()'')';
+  elsif not exists (select 1 from cron.job where jobname = 'expire-donations') then
+    perform cron.schedule('expire-donations', '*/5 * * * *', 'select public.expire_donations()');
+    raise notice 'scheduled expire_donations() every 5 minutes';
+  end if;
+exception when others then
+  raise notice 'could not schedule expire_donations(): %', sqlerrm;
+end $$;

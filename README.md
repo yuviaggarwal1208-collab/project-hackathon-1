@@ -56,7 +56,8 @@ refuses secret/service_role keys.
 Create a project at supabase.com, then choose one path:
 
 - **Supabase CLI (versioned, recommended):** `supabase link` then `supabase db push`.
-  Migrations live in `supabase/migrations/` (`0001_init.sql`, `0002_hardening.sql`).
+  Migrations live in `supabase/migrations/` (`0001_init.sql`, `0002_hardening.sql`,
+  `0003_storage_repair.sql`).
 - **SQL Editor (quickest):** open `supabase/schema.sql`, copy everything, paste into
   **SQL Editor → New query**, run. It is the rolled-up equivalent of the migrations.
 
@@ -154,6 +155,10 @@ claim atomicity, token replay, state machine, demo-data exclusion).
 
 - **`npm` not recognized**: install Node.js, reopen the terminal.
 - **Connect screen says tables are missing**: apply the migrations or `schema.sql`.
+- **Image upload fails / "Bucket not found"**: the `food-images` bucket is missing — run
+  `supabase/migrations/0003_storage_repair.sql` in the SQL Editor (safe to re-run).
+- **Check the live project against the schema**: `npm run db:check` prints tables, functions,
+  RLS leak probes, the storage bucket and realtime readiness, without exposing secrets.
 - **Change Supabase project**: open http://localhost:5173/setup.
 - **Location blocked**: allow Location for the site, then retry.
 - **Login says email not confirmed**: confirm the email, or disable confirmation for local

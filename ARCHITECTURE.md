@@ -265,8 +265,14 @@ Use isolated test projects/fixtures and never run destructive security tests aga
 - `supabase/migrations/0002_hardening.sql` — audit trail, token throttling, suspension
   re-checks, expiry notifications, report categories, audited admin report resolution,
   storage allowlist. Idempotent and safe to re-run on top of 0001.
+- `supabase/migrations/0003_storage_repair.sql` — idempotent repair for installs whose
+  `schema.sql` paste was cut off before the storage tail: creates the `food-images` bucket,
+  recreates the storage policies, ensures `notifications` is in the realtime publication
+  and schedules `expire_donations()` when pg_cron is enabled.
 - `supabase/schema.sql` — rolled-up equivalent for paste-based installs; kept in sync with
-  both migrations (documented at the top of the file).
+  all three migrations (documented at the top of the file).
+- `scripts/check-supabase.mjs` (`npm run db:check`) — read-only live drift check (tables,
+  functions, anon leak probes, storage, realtime) using only the publishable key.
 - New table `audit_events` (append-only; admin read policy only) and
   `pickup_token_attempts` (no policies at all).
 - `reports.category` added; direct report updates removed from RLS in favour of
