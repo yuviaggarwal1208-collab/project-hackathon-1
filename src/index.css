@@ -1,0 +1,125 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html { @apply font-sans text-ink-900 antialiased; scroll-behavior: smooth; }
+  body { @apply bg-white; }
+  h1, h2, h3 { @apply font-display tracking-tight text-forest-900; }
+  ::selection { @apply bg-forest-200; }
+  :focus-visible { outline: 2px solid theme('colors.forest.600'); outline-offset: 2px; }
+  @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; scroll-behavior: auto !important; } }
+}
+
+@layer components {
+  .btn { @apply inline-flex items-center justify-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold transition duration-200 active:scale-[.98] disabled:cursor-not-allowed disabled:opacity-50; }
+  .btn-primary { @apply btn bg-gradient-to-b from-forest-600 to-forest-700 text-white shadow-sm hover:from-forest-700 hover:to-forest-800 hover:shadow-card; }
+  .btn-outline { @apply btn border border-forest-300 bg-white text-forest-800 hover:border-forest-600 hover:bg-forest-50; }
+  .btn-urgent { @apply btn bg-urgent-500 text-white hover:bg-urgent-600; }
+  .btn-ghost { @apply btn text-ink-700 hover:bg-forest-50 hover:text-forest-800; }
+  .card { @apply rounded-xl2 border border-forest-100 bg-white shadow-card; }
+  .card-hover { @apply transition duration-200 hover:-translate-y-0.5 hover:shadow-lift; }
+  .input { @apply w-full rounded-xl border border-ink-300 bg-white px-3.5 py-2.5 text-sm text-ink-900 transition placeholder:text-ink-500/70 hover:border-forest-400 focus:border-forest-600 focus:ring-4 focus:ring-forest-100; }
+  .label { @apply mb-1.5 block text-sm font-semibold text-ink-700; }
+  .eyebrow { @apply mb-2 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[.14em] text-forest-600; }
+  .section-title { @apply text-3xl font-bold sm:text-4xl; }
+  .skeleton { @apply relative overflow-hidden rounded-xl bg-forest-100/70 before:absolute before:inset-0 before:-translate-x-full before:animate-[shimmer_1.4s_infinite] before:bg-gradient-to-r before:from-transparent before:via-white/60 before:to-transparent; }
+  .chip { @apply inline-flex items-center gap-1.5 rounded-full border border-forest-200 bg-white px-3.5 py-1.5 text-xs font-semibold text-forest-800 transition hover:border-forest-500; }
+  .chip-on { @apply border-forest-700 bg-forest-700 text-white hover:border-forest-700; }
+}
+
+.hero-bg {
+  background:
+    radial-gradient(60rem 30rem at 85% -10%, rgba(242,122,26,.12), transparent 60%),
+    radial-gradient(50rem 30rem at -10% 110%, rgba(47,122,75,.16), transparent 60%),
+    #fbf6ea;
+}
+.dots { background-image: radial-gradient(rgba(29,86,51,.16) 1.2px, transparent 1.2px); background-size: 18px 18px; }
+.text-gradient {
+  background-image: linear-gradient(120deg, #0f3120 10%, #2f7a4b 60%, #d9650b 110%);
+  -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-fill-color: transparent;
+}
+.glass { background: rgba(255,255,255,.72); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
+.blob { position: absolute; border-radius: 9999px; filter: blur(60px); pointer-events: none; }
+
+/* ------------------------------------------------------------------
+   DARK MODE
+   The <html> element gets the class "dark" (see ThemeContext).
+   Instead of editing every page, we re-colour the shared colour classes here.
+   Dark sections (footer, impact band) already use dark greens, so they stay as they are.
+   ------------------------------------------------------------------ */
+.dark { color-scheme: dark; }
+.dark body { background: #0b120e; }
+html.dark { color: #e6eee8; }
+.dark ::selection { background: #2b5a3d; color: #fff; }
+
+/* page surfaces */
+.dark .bg-white { background-color: #121c16; }
+.dark .bg-white\/85 { background-color: rgba(11, 18, 14, .85); }
+.dark .bg-cream-50 { background-color: #0b120e; }
+.dark .bg-cream-100 { background-color: #0f1812; }
+.dark .bg-forest-50 { background-color: #182820; }
+.dark .bg-forest-100 { background-color: #1d3126; }
+.dark .bg-forest-200 { background-color: #27432f; }
+.dark .bg-forest-50\/70, .dark .hover\:bg-forest-50\/70:hover { background-color: rgba(24, 40, 32, .8); }
+.dark .bg-forest-100\/70 { background-color: rgba(29, 49, 38, .8); }
+.dark .from-forest-100 { --tw-gradient-from: #1d3126 var(--tw-gradient-from-position); --tw-gradient-to: rgb(29 49 38 / 0) var(--tw-gradient-to-position); --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to); }
+.dark .to-cream-100 { --tw-gradient-to: #0f1812 var(--tw-gradient-to-position); }
+
+/* text */
+.dark h1, .dark h2, .dark h3 { color: #eef5f0; }
+.dark .text-ink-900 { color: #e6eee8; }
+.dark .text-ink-700 { color: #c9d6cd; }
+.dark .text-ink-500 { color: #93a59a; }
+.dark .text-forest-900 { color: #eef5f0; }
+.dark .text-forest-800 { color: #c4e4cd; }
+.dark .text-forest-700 { color: #a4d6b2; }
+.dark .text-forest-600 { color: #7fc796; }
+.dark .hover\:text-forest-800:hover { color: #e1f2e6; }
+.dark .text-urgent-600 { color: #ffa968; }
+.dark .text-gradient { background-image: linear-gradient(120deg, #ffffff 10%, #9fd8b0 60%, #ffb26b 110%); }
+
+/* borders */
+.dark .border-forest-100, .dark .divide-forest-100 > :not([hidden]) ~ :not([hidden]) { border-color: #22352a; }
+.dark .border-forest-200 { border-color: #2c4636; }
+.dark .border-forest-300 { border-color: #37563f; }
+.dark .border-ink-300 { border-color: #31443a; }
+.dark .ring-forest-100 { --tw-ring-color: #22352a; }
+
+/* badges and notices */
+.dark .bg-urgent-100 { background-color: #3a2413; }
+.dark .bg-blue-100 { background-color: #14283f; }
+.dark .text-blue-800 { color: #9cc4f5; }
+.dark .bg-red-100 { background-color: #3d1a1a; }
+.dark .text-red-700 { color: #f5a3a3; }
+.dark .bg-ink-500\/15 { background-color: rgba(147, 165, 154, .2); }
+
+/* shared component classes */
+.dark .card { background-color: #121c16; border-color: #22352a; box-shadow: 0 1px 2px rgba(0,0,0,.4), 0 10px 30px -14px rgba(0,0,0,.7); }
+.dark .card-hover:hover { box-shadow: 0 2px 4px rgba(0,0,0,.5), 0 20px 44px -16px rgba(0,0,0,.85); }
+.dark .input { background-color: #0e1812; border-color: #31443a; color: #e6eee8; }
+.dark .input:hover { border-color: #4f7a5e; }
+.dark .input:focus { border-color: #55a073; --tw-ring-color: rgba(85,160,115,.25); }
+.dark .btn-outline { background-color: #121c16; border-color: #37563f; color: #c4e4cd; }
+.dark .btn-outline:hover { background-color: #182820; border-color: #55a073; }
+.dark .btn-ghost { color: #c9d6cd; }
+.dark .btn-ghost:hover { background-color: #182820; color: #e1f2e6; }
+.dark .chip { background-color: #121c16; border-color: #2c4636; color: #c4e4cd; }
+.dark .chip:hover { border-color: #55a073; }
+.dark .chip-on { background-color: #2f7a4b; border-color: #2f7a4b; color: #fff; }
+.dark .glass { background: rgba(18, 28, 22, .75); }
+.dark .skeleton::before { background-image: linear-gradient(90deg, transparent, rgba(255,255,255,.07), transparent); }
+.dark .hero-bg {
+  background:
+    radial-gradient(60rem 30rem at 85% -10%, rgba(242,122,26,.14), transparent 60%),
+    radial-gradient(50rem 30rem at -10% 110%, rgba(47,122,75,.25), transparent 60%),
+    #0b120e;
+}
+.dark .dots { background-image: radial-gradient(rgba(159,216,176,.18) 1.2px, transparent 1.2px); }
+.dark dialog { background-color: #121c16; color: #e6eee8; border: 1px solid #22352a; }
+
+/* map: darken the OpenStreetMap tiles and popups */
+.dark .leaflet-tile-pane { filter: invert(1) hue-rotate(180deg) brightness(.9) contrast(.85) saturate(.7); }
+.dark .leaflet-container { background: #0e1812; }
+.dark .leaflet-popup-content-wrapper, .dark .leaflet-popup-tip { background: #16231b; color: #e6eee8; }
+.dark .leaflet-container a { color: #7fc796; }
